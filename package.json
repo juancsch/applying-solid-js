@@ -1,0 +1,11 @@
+{
+  "name": "applying-solid",
+  "version": "0.0.1",
+  "description": "",
+  "author": "",
+  "license": "ISC",
+  "main": "src/main.js",
+  "scripts": {
+    "wc": "node src/main.js"
+  }
+}
