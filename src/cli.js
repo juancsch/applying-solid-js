@@ -1,4 +1,4 @@
-const input = require('./app/input/input-from-file')
+const input = require('./app/input')
 const output = require('./app/output/output-to-file')
 const wordCounter = require('./app/domain/word-counter')(
     input, output('word-count.json')
