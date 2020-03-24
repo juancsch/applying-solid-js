@@ -8,33 +8,31 @@ const port = 8000
 
 const server = http.createServer(handlerRequest)
 server.listen(port)
-server.on('error', e => console.error('*** Server error', e))
+server.on('error', err => console.error('*** Server error', err))
 server.on('listening', () => console.log('*** Server running at http://localhost:%s/', port))
 
-function handlerRequest (req, res) {
-	const reqURL = url.parse(req.url, true)
-	const location = reqURL.query['location']
-
-	wordCountFrom(location, res)
+async function handlerRequest (request, response) {
+	try {
+		const wordCount = WordCount(input, outputTo(response))
+		await wordCount(getLocationFrom(request))
+	} catch (err) {
+		handleErrorTo(response, err)
+	}
 }
 
-async function wordCountFrom (location, response) {
-	try {
-		const wordCount = WordCount(input, output)
-		await wordCount(location)
-	} catch (err) {
-		handleError(err)
-	}
+const outputTo = response => wordCountJSON => {
+	response.writeHead(200, {
+		'Content-Type': 'application/json'
+	})
+	response.end(JSON.stringify(wordCountJSON))
+}
 
-	async function output (wordCountJSON) {
-		response.writeHead(200, {
-			'Content-Type': 'application/json'
-		})
-		response.end(JSON.stringify(wordCountJSON))
-	}
+function getLocationFrom (request) {
+	const reqURL = url.parse(request.url, true)
+	return reqURL.query['location']
+}
 
-	function handleError (error) {
-		response.status(500)
-				.json({cause: error.message})
-	}
+function handleErrorTo (response, error) {
+	response.writeHead(500)
+			.end({cause: error.message})
 }
