@@ -1,19 +1,15 @@
 const path = require('path')
 const fs = require('fs')
 
+const WordCounter = require('./word-counter')
+
 main(process.argv[2])
 
 async function main (location) {
 
     try {
-        const data = await input(location)
-
-        const wordCount = data.split(/\s/).length
-        const wordCountJSON = {
-            wordCount
-        }
-
-        await output(wordCountJSON)
+        const wordCounter = WordCounter(input, output)
+        await wordCounter(location)
     } catch (e) {
         console.error(e)
         process.exit(1)
