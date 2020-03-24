@@ -6,6 +6,6 @@
   "license": "ISC",
   "main": "src/main.js",
   "scripts": {
-    "wc": "node src/main.js"
+    "wc": "node src/cli.js"
   }
 }
