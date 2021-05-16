@@ -7,6 +7,11 @@
   "main": "src/main.js",
   "scripts": {
     "wc": "node src/cli.js",
-    "server": "node src/server.js"
+    "server": "node src/server.js",
+    "lint": "eslint src",
+    "lint:fix": "eslint --fix src"
+  },
+  "devDependencies": {
+    "standart": "^6.1.0"
   }
 }

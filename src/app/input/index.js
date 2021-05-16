@@ -7,8 +7,8 @@ const strategies = {
 module.exports = function (location) {
 
 	if (location.startsWith('http')) {
-		return strategies['http'](location);
+		return strategies['http'](location)
 	}
 
-	return strategies['file'](location);
+	return strategies['file'](location)
 }
